@@ -26,13 +26,52 @@ void stratyImaxdyst()
 		if (dystans < 1 || dystans > 20) poza++;
 	}
 	plik.close();
+	plik.open("oddzialy.txt");
 	cout << strat << " " << poza << endl;
 	cout << setprecision(5) << max << endl;
+}
+
+int straty(int a, int b)
+{
+	int x;
+	int y;
+	double distance;
+	int strat = 0;
+	for (int i = 0; i < 50; i++)
+	{
+		plik >> x >> y;
+		//cout << a << "\t" << b << "\t" << x << "\t" << y << endl;
+		distance = sqrt(((x - a) * (x - a)) + ((y - b) * (y - b)));
+		if (distance == 2) strat += 25;
+		if (distance < 2) strat += 100;
+	}
+	plik.close();
+	plik.open("oddzialy.txt");
+	return strat;
 }
 
 int main()
 {
 	stratyImaxdyst();
+	int x = 0, y = 0;
+	int max = 0;
+	int maks = 0;
+	for (int i = -20; i <= 20; i++)
+	{
+		for (int j = -20; j <= 20; j++)
+		{
+			maks = straty(i, j);
+			//cout << maks << endl;
+			//cout << i << "\t" << j << endl;
+			if (maks > max)
+			{
+				max = maks;
+				x = i;
+				y = j;
+			}
+		}
+	}
+	cout << x << ", " << y << "\t" << max << endl;
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
