@@ -3,32 +3,36 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
 using namespace std;
 
 ifstream plik("oddzialy.txt");
 
-void straty()
+void stratyImaxdyst()
 {
 	int strat = 0;
 	int poza = 0;
 	int x;
 	int y;
 	double dystans;
+	double max = 0;
 	for (int i = 0; i < 50; i++)
 	{
 		plik >> x >> y;
 		dystans = sqrt((x * x) + (y * y));
+		if (dystans > max) max = dystans;
 		if (dystans == 1 || dystans == 20) strat += 25;
 		if (dystans > 1 && dystans < 20) strat += 100;
 		if (dystans < 1 || dystans > 20) poza++;
 	}
 	plik.close();
-	cout << strat << " " << poza;
+	cout << strat << " " << poza << endl;
+	cout << setprecision(5) << max << endl;
 }
 
 int main()
 {
-	straty();
+	stratyImaxdyst();
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
